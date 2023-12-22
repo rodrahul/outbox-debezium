@@ -45,6 +45,10 @@ services:
      - POSTGRES_PASSWORD=postgrespw
      - POSTGRES_DB=orderdb
      - PGPASSWORD=postgrespw
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical" # Need to set WriteAheadLog to logical for debezium connector to work 
   
   # shipment-db:
   #   image: quay.io/debezium/example-postgres:${DEBEZIUM_VERSION}
@@ -76,42 +80,43 @@ services:
   #   ports:
   #     - "${PGADMIN_PORT:-5050}:80"
   
-  # connect:
-  #   image: debezium/strimzi-connect
-  #   build:
-  #     context: debezium-strimzi
-  #     args:
-  #       DEBEZIUM_CONNECTOR_VERSION: "${DEBEZIUM_CONNECTOR_VERSION:-2.4.2.Final}"
-  #       STRIMZI_VERSION: "${STRIMZI_VERSION:-latest-kafka-3.5.1}"
-  #   ports:
-  #    - 8083:8083
-  #   links:
-  #    - kafka
-  #    - order-db
-  #   environment:
-  #    - KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:/opt/kafka/config/connect-log4j.properties
-  #    - KAFKA_CONNECT_BOOTSTRAP_SERVERS=kafka:9092
-  #    - |
-  #        KAFKA_CONNECT_CONFIGURATION=
-  #        key.converter=org.apache.kafka.connect.json.JsonConverter
-  #        value.converter=org.apache.kafka.connect.json.JsonConverter
-  #        key.converter.schemas.enable=false
-  #        value.converter.schemas.enable=false
-  #        group.id=connect
-  #        offset.storage.topic=connect-offsets
-  #        offset.storage.replication.factor=1
-  #        config.storage.topic=connect-configs
-  #        config.storage.replication.factor=1
-  #        status.storage.topic=connect-status
-  #        status.storage.replication.factor=1
-  #        producer.interceptor.classes=io.debezium.tracing.DebeziumTracingProducerInterceptor
-  #    - OTEL_SERVICE_NAME=kafka-connect
-  #    - OTEL_TRACES_EXPORTER=otlp
-  #    - OTEL_METRICS_EXPORTER=none
-  #    - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
-  #    - OTEL_TRACES_SAMPLER=always_on
-  #    - STRIMZI_TRACING=opentelemetry
-  #   command: /opt/kafka/kafka_connect_run.sh
+  connect:
+    image: debezium/strimzi-connect
+    build:
+      context: debezium-strimzi
+      args:
+        DEBEZIUM_CONNECTOR_VERSION: "${DEBEZIUM_CONNECTOR_VERSION:-2.4.2.Final}"
+        STRIMZI_VERSION: "${STRIMZI_VERSION:-latest-kafka-3.5.1}"
+    ports:
+     - 8083:8083
+    links:
+     - kafka
+     - order-db
+    environment:
+     - KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:/opt/kafka/config/connect-log4j.properties
+     - KAFKA_CONNECT_BOOTSTRAP_SERVERS=kafka:9092
+     - |
+         KAFKA_CONNECT_CONFIGURATION=
+         key.converter=org.apache.kafka.connect.json.JsonConverter
+         value.converter=org.apache.kafka.connect.storage.StringConverter
+         transforms.outbox.table.expand.json.payload=true
+         key.converter.schemas.enable=false
+         value.converter.schemas.enable=false
+         group.id=connect
+         offset.storage.topic=connect-offsets
+         offset.storage.replication.factor=1
+         config.storage.topic=connect-configs
+         config.storage.replication.factor=1
+         status.storage.topic=connect-status
+         status.storage.replication.factor=1
+         producer.interceptor.classes=io.debezium.tracing.DebeziumTracingProducerInterceptor
+     - OTEL_SERVICE_NAME=kafka-connect
+     - OTEL_TRACES_EXPORTER=otlp
+     - OTEL_METRICS_EXPORTER=none
+     - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+     - OTEL_TRACES_SAMPLER=always_on
+     - STRIMZI_TRACING=opentelemetry
+    command: /opt/kafka/kafka_connect_run.sh
   
   # order-service:
   #   image: debezium-examples/outbox-order-service:${DEBEZIUM_VERSION}

@@ -17,3 +17,13 @@ $ export DEBEZIUM_CONNECTOR_VERSION=2.4.2.Final
 
 The `DEBEZIUM_VERSION` specifies which version of Debezium images should be used.
 The `DEBEZIUM_CONNECTOR_VERSION` specifies which version of Debezium connector artifacts should be used.
+
+## Configure the Debezium connector
+Register the connector that to stream outbox changes from the order service:
+Once you've all the docker components up and running
+run the following command command to register 
+
+```
+$ http PUT http://localhost:8083/connectors/outbox-connector/config < register-postgres.json
+HTTP/1.1 201 Created
+```
