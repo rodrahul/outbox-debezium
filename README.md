@@ -27,3 +27,8 @@ run the following command command to register
 $ http PUT http://localhost:8083/connectors/outbox-connector/config < register-postgres.json
 HTTP/1.1 201 Created
 ```
+
+
+Changes needed from the tutorial
+* Update strimzi-connect env config to value.converter=org.apache.kafka.connect.storage.StringConverter, as the kafka values were string escaped
+* Added postresql and conduktor-platform for kafka UI
