@@ -2,7 +2,6 @@ package org.acme.order.rest;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.acme.order.entity.PurchaseOrder;
 
@@ -29,7 +28,7 @@ public record OrderOperationResponse(
     List<OrderLineDto> lines = order.getLineItems()
         .stream()
         .map(l -> new OrderLineDto(l.getId(), l.getItem(), l.getQuantity(), l.getTotalPrice(), l.getStatus()))
-        .collect(Collectors.toList());
+        .toList();
 
     return OrderOperationResponse.builder()
         .id(order.getId())

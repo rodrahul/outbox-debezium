@@ -8,6 +8,7 @@ import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestPath;
 import org.jboss.resteasy.reactive.RestResponse;
 
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -21,6 +22,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RunOnVirtualThread
 public class OrderResource {
 
   @Inject
@@ -43,11 +45,11 @@ public class OrderResource {
   public RestResponse<OrderOperationResponse> getOrder(@RestPath Long id) {
     var order = orderService.findOrderById(id).orElse(null);
     if (order == null) {
-      logger.debug("No Order found with id " + id);
+      logger.info("No Order found with id " + id);
       return RestResponse.noContent();
     }
 
-    logger.debug("Found Order " + order);
+    logger.info("Found Order " + order);
     var response = OrderOperationResponse.from(order);
     return RestResponse.ok(response);
   }

@@ -1,0 +1,148 @@
+[
+  {
+    "customerId": 1,
+    "lineItems": [
+      {
+        "item": "Shirt",
+        "quantity": 10,
+        "totalPrice": 39.00380083505534,
+        "status": "ENTERED"
+      },
+      {
+        "item": "Sunglasses",
+        "quantity": 4,
+        "totalPrice": 38.48840675119475,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 16,
+    "lineItems": [
+      {
+        "item": "Shoes",
+        "quantity": 9,
+        "totalPrice": 27.317611227971156,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 36,
+    "lineItems": [
+      {
+        "item": "Coffee",
+        "quantity": 2,
+        "totalPrice": 63.38151451937126,
+        "status": "ENTERED"
+      },
+      {
+        "item": "Hat",
+        "quantity": 6,
+        "totalPrice": 20.21887356804326,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 21,
+    "lineItems": [
+      {
+        "item": "Phone",
+        "quantity": 1,
+        "totalPrice": 82.13852515663851,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 61,
+    "lineItems": [
+      {
+        "item": "Laptop",
+        "quantity": 10,
+        "totalPrice": 56.8337941882451,
+        "status": "ENTERED"
+      },
+      {
+        "item": "T-shirt",
+        "quantity": 5,
+        "totalPrice": 71.01874699190249,
+        "status": "ENTERED"
+      },
+      {
+        "item": "Sunglasses",
+        "quantity": 1,
+        "totalPrice": 43.4730960061518,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 101,
+    "lineItems": [
+      {
+        "item": "Laptop",
+        "quantity": 1,
+        "totalPrice": 1200,
+        "status": "ENTERED"
+      },
+      {
+        "item": "Mouse",
+        "quantity": 2,
+        "totalPrice": 60,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 102,
+    "lineItems": [
+      {
+        "item": "T-shirt",
+        "quantity": 3,
+        "totalPrice": 90,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 103,
+    "lineItems": [
+      {
+        "item": "Book",
+        "quantity": 5,
+        "totalPrice": 50,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 104,
+    "lineItems": [
+      {
+        "item": "Headphones",
+        "quantity": 1,
+        "totalPrice": 150,
+        "status": "ENTERED"
+      },
+      {
+        "item": "Charger",
+        "quantity": 1,
+        "totalPrice": 20,
+        "status": "ENTERED"
+      }
+    ]
+  },
+  {
+    "customerId": 105,
+    "lineItems": [
+      {
+        "item": "Watch",
+        "quantity": 2,
+        "totalPrice": 400,
+        "status": "ENTERED"
+      }
+    ]
+  }
+]

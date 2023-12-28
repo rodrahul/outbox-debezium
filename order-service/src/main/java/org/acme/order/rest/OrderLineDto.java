@@ -26,7 +26,7 @@ public class OrderLineDto {
   private String item;
   
   @NotNull
-  private int quantity;
+  private Integer quantity;
   
   @NotNull
   private BigDecimal totalPrice;
@@ -34,7 +34,7 @@ public class OrderLineDto {
   @NotNull
   private OrderLineStatus status;
 
-  public OrderLineDto(String item, int quantity, BigDecimal totalPrice) {
+  public OrderLineDto(String item, Integer quantity, BigDecimal totalPrice) {
     this.item = item;
     this.quantity = quantity;
     this.totalPrice = totalPrice;
