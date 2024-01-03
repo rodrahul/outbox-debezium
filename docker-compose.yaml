@@ -50,20 +50,21 @@ services:
       - "-c"
       - "wal_level=logical" # Need to set WriteAheadLog to logical for debezium connector to work 
   
-  # shipment-db:
-  #   image: quay.io/debezium/example-postgres:${DEBEZIUM_VERSION}
-  #   ports:
-  #     - 5434:5432
-  #   healthcheck:
-  #     test: "pg_isready -U postgresuser -d shipmentdb"
-  #     interval: 2s
-  #     timeout: 20s
-  #     retries: 10
-  #   environment:
-  #     - POSTGRES_USER=postgresuser
-  #     - POSTGRES_PASSWORD=postgrespw
-  #     - POSTGRES_DB=shipmentdb
-  #     - PGPASSWORD=postgrespw
+  shipment-db:
+    image: postgres:16.1
+    # image: quay.io/debezium/example-postgres:${DEBEZIUM_VERSION}
+    ports:
+      - 5434:5432
+    healthcheck:
+      test: "pg_isready -U postgresuser -d shipmentdb"
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    environment:
+      - POSTGRES_USER=postgresuser
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=shipmentdb
+      - PGPASSWORD=postgrespw
   
   # --------------------------------
   # Run this if you want to have a pgadmin console to access
@@ -156,7 +157,12 @@ services:
   #     connect:
   #       condition: service_started
 
+
+  # ----------------------------------------------------------------
+  # ----------------------------------------------------------------
   # Following is for running Conduktor and accessing kafka cluster GUI
+  # ----------------------------------------------------------------
+  # ----------------------------------------------------------------
   postgresql:
     image: postgres:14
     hostname: postgresql

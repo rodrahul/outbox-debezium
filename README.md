@@ -30,5 +30,11 @@ HTTP/1.1 201 Created
 
 
 Changes needed from the tutorial
+* Changed the order and shipment db to use standard postgresql
+* Added - "wal_level=logical" to order-db as a command 
+```
+postgres -c wal_level=logical
+```
+Need to set WriteAheadLog to logical for debezium connector to work 
 * Update strimzi-connect env config to value.converter=org.apache.kafka.connect.storage.StringConverter, as the kafka values were string escaped
 * Added postresql and conduktor-platform for kafka UI
